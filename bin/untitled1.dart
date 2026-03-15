@@ -3,196 +3,305 @@ import 'dart:math';
 import 'package:untitled1/untitled1.dart' as untitled1;
 import 'dart:io';
 
-double plus(double a, double b) {
-  return (a + b);
-}
+List<String> students = [
+  "Ivan",
+  "Maria",
+  "Alexey",
+  "Olga",
+  "Dmitry",
+  "Anna"
+];
 
-double minus(double a, double b) {
-  return (a - b);
-}
+List<String> subjects = [
+  "Mathematics",
+  "Physics",
+  "Computer Science",
+  "English"
+];
 
-double multiplication(double a, double b) {
-  return (a * b);
-}
-
-double division(double a, double b) {
-  return (a / b);
-}
-
-int intDivision(double a, double b) {
-  return (a~/b);
-}
-
-double sonata(double a, double b) {
-  return(a % b);
-}
-
-num toPow(double a, double b) {
-  return pow(a, b);
-}
-
-bool isBothPositive(double a, double b) {
-  return (a >= 0) && (b >= 0);
-}
-
-bool isOnePositive(double a, double b) {
-  return (a >= 0) || (b >= 0);
-}
-
-bool reverseAnswer(double a, double b) {
-  return !(isOnePositive(a, b));
-}
-
-int getMathChoice() {
-  print("\nChoose operation: ");
-  print("1 - sum");
-  print("2 - minus");
-  print("3 - division");
-  print("4 - multiplication");
-  print("5 - Int division");
-  print("6 - Sonata");
-  print("7 - pow");
-  print("Your choice: ");
-
-  int input = int.parse(stdin.readLineSync()!);
-
-  return input;
-}
-
-int getComparsionChoice() {
-  print("\nChoose operation:");
-  print("1 - ==");
-  print("2 - !=");
-  print("3 - >");
-  print("4 - <");
-  print("5 - >=");
-  print("6 - <=");
-  print("7 - is both positive");
-  print("8 - is one positive");
-  print("9 - reverse is both positive");
-  print("10 - Exit");
-  print("Your choice: ");
-
-  int input = int.parse(stdin.readLineSync()!);
-
-  return input;
-}
-
-void comparsionOperations() {
-  print("Enter first num: ");
-  double a = double.parse(stdin.readLineSync()!);
-
-  print("Enter second num: ");
-  double b = double.parse(stdin.readLineSync()!);
-
-  switch(getComparsionChoice()){
-    case 1:
-      print(a == b);
-      break;
-
-    case 2:
-      print(a != b);
-      break;
-      
-    case 3:
-      print(a > b);
-      break;
-
-    case 4:
-      print(a < b);
-      break;
-
-    case 5:
-      print(a >= b);
-      break;
-
-    case 6:
-      print(a <= b);
-      break;
-
-    case 7:
-      print(isBothPositive(a, b));
-      break;
-
-    case 8:
-      print(isOnePositive(a, b));
-      break;
-
-    case 9:
-      print(reverseAnswer(a, b));
-      break;
-
-    case 10:
-      print("Exiting...");
-      break;
-
-    default:
-      print("Incorrect choice, try again");
-      comparsionOperations();
-      break;
+Map<String, Map<String, int>> grades = {
+  "Ivan": {
+    "Mathematics": 5,
+    "Physics": 4,
+    "Computer Science": 5,
+    "English": 3
+  },
+  "Maria": {
+    "Mathematics": 4,
+    "Physics": 5,
+    "Computer Science": 5,
+    "English": 4
+  },
+  "Alexey": {
+    "Mathematics": 3,
+    "Physics": 4,
+    "Computer Science": 4,
+    "English": 3
+  },
+  "Olga": {
+    "Mathematics": 5,
+    "Physics": 5,
+    "Computer Science": 4,
+    "English": 5
+  },
+  "Dmitry": {
+    "Mathematics": 2,
+    "Physics": 3,
+    "Computer Science": 4,
+    "English": 3
+  },
+  "Anna": {
+    "Mathematics": 4,
+    "Physics": 4,
+    "Computer Science": 5,
+    "English": 4
   }
-}
-
-void mathOperations() {
-  print("Enter first num");
-  double a = double.parse(stdin.readLineSync()!);
-
-  print("Enter second num");
-  double b = double.parse(stdin.readLineSync()!);
-
-  switch (getMathChoice()) {
-    case 1:
-      print(plus(a, b));
-      break;
-
-    case 2:
-      print(minus(a, b));
-      break;
-
-    case 3:
-      print(division(a, b));
-      break;
-
-    case 4:
-      print(multiplication(a, b));
-      break;
-
-    case 5:
-      print(intDivision(a, b));
-      break;
-
-    case 6:
-      print(sonata(a, b));
-      break;
-
-    case 7:
-      print(toPow(a, b));
-      break;
-  }
-}
+};
 
 void main(List<String> arguments) {
   while(true){
-    print("Enter type of operation: ");
-    print("1 - Math operations");
-    print("2 - Comparsion operations");
-    print("3 - Exit");
-    print("Your choice: ");
-
-    int choice = int.parse(stdin.readLineSync()!);
-
-    switch (choice) {
+    switch (get_choice()) {
       case 1:
-        mathOperations();
-        break;
+        student_list();
 
       case 2:
-        comparsionOperations();
+        subject_list();
         break;
 
       case 3:
-        print("Exiting...");
+        students_grades();
+        break;
+
+      case 4:
+        average_by_subject();
+        break;
+
+      case 5:
+        average_by_student();
+        break;
+
+      case 6:
+        best_student();
+        break;
+
+      case 7:
+        worst_subject();
+        break;
+
+      case 8:
+        group_average();
+        break;
+
+      case 9:
+        subjects_info();
+        break;
+
+      case 10:
+        students_without_two();
+        break;
+
+      case 11:
+        students_all_above_four();
+        break;
+
+      case 12:
         return;
+
+      default:
+        print("Incorrect choice. Try again");
     }
   }
 }
+
+  int get_choice() {
+    print("\nChoose option: ");
+    print("1 - student list");
+    print("2 - subject list");
+    print("3 - students grades");
+    print("4 - average grade by subject");
+    print("5 - average grade by student");
+    print("6 - best student");
+    print("7 - subject with lowest average");
+    print("8 - group average grade");
+    print("9 - subjects list and count");
+    print("10 - students without grade 2");
+    print("11 - students with all grades >= 4");
+    print("12 - Exit");
+    print("Your choice: ");
+
+    int choice = int.parse(stdin.readLineSync()!);
+    return choice;
+  }
+
+  void student_list() {
+    for(int i = 0; i < students.length; i++) {
+      print("${i + 1}: ${students[i]}");
+    }
+  }
+
+  void subject_list() {
+    for(int i = 0; i < subjects.length; i++) {
+      print("${i + 1}: ${subjects[i]}");
+    }
+  }
+
+  void students_grades() {
+    for (var entry in grades.entries) {
+      print("${entry.key}:");
+
+      for (var grade in entry.value.entries) {
+        print("  ${grade.key}: ${grade.value}");
+      }
+    }
+  }
+
+  void average_by_subject() {
+    for (int i = 0; i < subjects.length; i++) {
+      String subject = subjects[i];
+      int sum = 0;
+
+      for (int j = 0; j < students.length; j++) {
+        String student = students[j];
+        sum += grades[student]![subject]!;
+      }
+
+      double avg = sum / students.length;
+      print("$subject average: $avg");
+    }
+  }
+
+  void average_by_student() {
+    for (int i = 0; i < students.length; i++) {
+      String student = students[i];
+      int sum = 0;
+
+      for (int j = 0; j < subjects.length; j++) {
+        String subject = subjects[j];
+        sum += grades[student]![subject]!;
+      }
+
+      double avg = sum / subjects.length;
+      print("$student average: $avg");
+    }
+  }
+
+  void best_student() {
+    String bestStudent = "";
+    double bestAvg = 0;
+
+    for (int i = 0; i < students.length; i++) {
+      String student = students[i];
+      int sum = 0;
+
+      for (int j = 0; j < subjects.length; j++) {
+        String subject = subjects[j];
+        sum += grades[student]![subject]!;
+      }
+
+      double avg = sum / subjects.length;
+
+      if (avg > bestAvg) {
+        bestAvg = avg;
+        bestStudent = student;
+      }
+
+    }
+
+    print("Best student: $bestStudent");
+  }
+
+  void worst_subject() {
+    String worst = "";
+    double worstAvg = 10;
+
+    for (int i = 0; i < subjects.length; i++) {
+      String subject = subjects[i];
+      int sum = 0;
+
+      for (int j = 0; j < students.length; j++) {
+        String student = students[j];
+        sum += grades[student]![subject]!;
+      }
+
+      double avg = sum / students.length;
+
+      if (avg < worstAvg) {
+        worstAvg = avg;
+        worst = subject;
+      }
+    }
+
+    print("Worst subject: $worst");
+  }
+
+  void group_average() {
+    int sum = 0;
+    int counter = 0;
+
+    for (int i = 0; i < students.length; i++) {
+      String student = students[i];
+
+      for (int j = 0; j < subjects.length; j++) {
+        String subject = subjects[j];
+        sum += grades[student]![subject]!;
+        counter++;
+      }
+    }
+
+    double avg = sum / counter;
+    print("Group average: $avg");
+  }
+
+  void subjects_info() {
+    for (int i = 0; i < subjects.length; i++) {
+      print(subjects[i]);
+    }
+
+    print("Total subjects: ${subjects.length}");
+  }
+
+  void students_without_two() {
+    for (int i = 0; i < students.length; i++) {
+      String student = students[i];
+      bool hasTwo = false;
+
+      for (int j = 0; j < subjects.length; j++) {
+        String subject = subjects[j];
+
+        if (grades[student]![subject] == 2) {
+          hasTwo = true;
+        }
+      }
+
+      if (!hasTwo) {
+        print(student);
+      }
+
+    }
+  }
+
+  void students_all_above_four() {
+    for (int i = 0; i < students.length; i++) {
+      String student = students[i];
+      bool good = true;
+
+      for (int j = 0; j < subjects.length; j++) {
+        String subject = subjects[j];
+
+        if (grades[student]![subject]! < 4) {
+          good = false;
+        }
+      }
+
+      if (good) {
+        print(student);
+      }
+
+    }
+
+}
+
+
+
+
+
