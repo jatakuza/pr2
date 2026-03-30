@@ -3,303 +3,184 @@ import 'dart:math';
 import 'package:untitled1/untitled1.dart' as untitled1;
 import 'dart:io';
 
-List<String> students = [
-  "Ivan",
-  "Maria",
-  "Alexey",
-  "Olga",
-  "Dmitry",
-  "Anna"
-];
-
-List<String> subjects = [
-  "Mathematics",
-  "Physics",
-  "Computer Science",
-  "English"
-];
-
-Map<String, Map<String, int>> grades = {
-  "Ivan": {
-    "Mathematics": 5,
-    "Physics": 4,
-    "Computer Science": 5,
-    "English": 3
-  },
-  "Maria": {
-    "Mathematics": 4,
-    "Physics": 5,
-    "Computer Science": 5,
-    "English": 4
-  },
-  "Alexey": {
-    "Mathematics": 3,
-    "Physics": 4,
-    "Computer Science": 4,
-    "English": 3
-  },
-  "Olga": {
-    "Mathematics": 5,
-    "Physics": 5,
-    "Computer Science": 4,
-    "English": 5
-  },
-  "Dmitry": {
-    "Mathematics": 2,
-    "Physics": 3,
-    "Computer Science": 4,
-    "English": 3
-  },
-  "Anna": {
-    "Mathematics": 4,
-    "Physics": 4,
-    "Computer Science": 5,
-    "English": 4
-  }
-};
-
 void main(List<String> arguments) {
-  while(true){
-    switch (get_choice()) {
+  while (true) {
+    switch (getChoice()) {
       case 1:
-        student_list();
+        print("Enter three numbers:");
+        int a = int.parse(stdin.readLineSync()!);
+        int b = int.parse(stdin.readLineSync()!);
+        int c = int.parse(stdin.readLineSync()!);
+
+        print("Max: ${maxOfThree(a, b, c)}");
+        break;
 
       case 2:
-        subject_list();
+        List<int> list = readIntList();
+        print("Sum = ${sumList(list)}");
         break;
 
       case 3:
-        students_grades();
+        List<int> list = readIntList();
+        print("Product = ${productList(list)}");
         break;
 
       case 4:
-        average_by_subject();
+        List list = readStringList();
+        print("Without duplicates: ${removeDuplicates(list)}");
         break;
 
       case 5:
-        average_by_student();
+        print("Enter number:");
+        int n = int.parse(stdin.readLineSync()!);
+        print("Factorial: ${factorial(n)}");
         break;
 
       case 6:
-        best_student();
+        List list = readStringList();
+        print("Enter element:");
+        var element = stdin.readLineSync()!;
+        print("Exists: ${containsElement(list, element)}");
         break;
 
       case 7:
-        worst_subject();
+        List list = readStringList();
+        print("Elements with odd index:");
+        printOddIndexElements(list);
         break;
 
       case 8:
-        group_average();
+        List list = readStringList();
+        print("Reversed: ${reverseList(list)}");
         break;
 
       case 9:
-        subjects_info();
+        List<int> list = readIntList();
+        print("Average = ${average(list)}");
         break;
 
       case 10:
-        students_without_two();
+        List list = readStringList();
+        print("Enter element:");
+        var element = stdin.readLineSync()!;
+        print("Occurrences: ${countOccurrences(list, element)}");
         break;
 
       case 11:
-        students_all_above_four();
-        break;
-
-      case 12:
+        print("Exit");
         return;
-
-      default:
-        print("Incorrect choice. Try again");
     }
   }
 }
 
-  int get_choice() {
-    print("\nChoose option: ");
-    print("1 - student list");
-    print("2 - subject list");
-    print("3 - students grades");
-    print("4 - average grade by subject");
-    print("5 - average grade by student");
-    print("6 - best student");
-    print("7 - subject with lowest average");
-    print("8 - group average grade");
-    print("9 - subjects list and count");
-    print("10 - students without grade 2");
-    print("11 - students with all grades >= 4");
-    print("12 - Exit");
-    print("Your choice: ");
+int getChoice() {
+  print("\nChoose option:");
+  print("1 - find maximum of three numbers");
+  print("2 - sum of list elements");
+  print("3 - product of list elements");
+  print("4 - remove duplicate elements from list");
+  print("5 - calculate factorial of a number");
+  print("6 - check if element exists in list or set");
+  print("7 - print list elements with odd index");
+  print("8 - reverse list");
+  print("9 - calculate average of list elements");
+  print("10 - count occurrences of an element in list");
+  print("11 - Exit");
+  print("Your choice: ");
 
-    int choice = int.parse(stdin.readLineSync()!);
-    return choice;
-  }
-
-  void student_list() {
-    for(int i = 0; i < students.length; i++) {
-      print("${i + 1}: ${students[i]}");
-    }
-  }
-
-  void subject_list() {
-    for(int i = 0; i < subjects.length; i++) {
-      print("${i + 1}: ${subjects[i]}");
-    }
-  }
-
-  void students_grades() {
-    for (var entry in grades.entries) {
-      print("${entry.key}:");
-
-      for (var grade in entry.value.entries) {
-        print("  ${grade.key}: ${grade.value}");
-      }
-    }
-  }
-
-  void average_by_subject() {
-    for (int i = 0; i < subjects.length; i++) {
-      String subject = subjects[i];
-      int sum = 0;
-
-      for (int j = 0; j < students.length; j++) {
-        String student = students[j];
-        sum += grades[student]![subject]!;
-      }
-
-      double avg = sum / students.length;
-      print("$subject average: $avg");
-    }
-  }
-
-  void average_by_student() {
-    for (int i = 0; i < students.length; i++) {
-      String student = students[i];
-      int sum = 0;
-
-      for (int j = 0; j < subjects.length; j++) {
-        String subject = subjects[j];
-        sum += grades[student]![subject]!;
-      }
-
-      double avg = sum / subjects.length;
-      print("$student average: $avg");
-    }
-  }
-
-  void best_student() {
-    String bestStudent = "";
-    double bestAvg = 0;
-
-    for (int i = 0; i < students.length; i++) {
-      String student = students[i];
-      int sum = 0;
-
-      for (int j = 0; j < subjects.length; j++) {
-        String subject = subjects[j];
-        sum += grades[student]![subject]!;
-      }
-
-      double avg = sum / subjects.length;
-
-      if (avg > bestAvg) {
-        bestAvg = avg;
-        bestStudent = student;
-      }
-
-    }
-
-    print("Best student: $bestStudent");
-  }
-
-  void worst_subject() {
-    String worst = "";
-    double worstAvg = 10;
-
-    for (int i = 0; i < subjects.length; i++) {
-      String subject = subjects[i];
-      int sum = 0;
-
-      for (int j = 0; j < students.length; j++) {
-        String student = students[j];
-        sum += grades[student]![subject]!;
-      }
-
-      double avg = sum / students.length;
-
-      if (avg < worstAvg) {
-        worstAvg = avg;
-        worst = subject;
-      }
-    }
-
-    print("Worst subject: $worst");
-  }
-
-  void group_average() {
-    int sum = 0;
-    int counter = 0;
-
-    for (int i = 0; i < students.length; i++) {
-      String student = students[i];
-
-      for (int j = 0; j < subjects.length; j++) {
-        String subject = subjects[j];
-        sum += grades[student]![subject]!;
-        counter++;
-      }
-    }
-
-    double avg = sum / counter;
-    print("Group average: $avg");
-  }
-
-  void subjects_info() {
-    for (int i = 0; i < subjects.length; i++) {
-      print(subjects[i]);
-    }
-
-    print("Total subjects: ${subjects.length}");
-  }
-
-  void students_without_two() {
-    for (int i = 0; i < students.length; i++) {
-      String student = students[i];
-      bool hasTwo = false;
-
-      for (int j = 0; j < subjects.length; j++) {
-        String subject = subjects[j];
-
-        if (grades[student]![subject] == 2) {
-          hasTwo = true;
-        }
-      }
-
-      if (!hasTwo) {
-        print(student);
-      }
-
-    }
-  }
-
-  void students_all_above_four() {
-    for (int i = 0; i < students.length; i++) {
-      String student = students[i];
-      bool good = true;
-
-      for (int j = 0; j < subjects.length; j++) {
-        String subject = subjects[j];
-
-        if (grades[student]![subject]! < 4) {
-          good = false;
-        }
-      }
-
-      if (good) {
-        print(student);
-      }
-
-    }
-
+  return int.parse(stdin.readLineSync()!);
 }
+
+List<int> readIntList() {
+  print("Enter numbers: ");
+  return stdin.readLineSync()!.split(' ').map(int.parse).toList();
+}
+
+List<String> readStringList() {
+  print("Enter elements: ");
+  return stdin.readLineSync()!.split(' ');
+}
+
+int maxOfThree(int a, int b, int c) {
+  return max(a, max(b, c));
+}
+
+int sumList(List<int> list) {
+  int sum = 0;
+
+  for (int i = 0; i < list.length; i++) {
+    sum += list[i];
+  }
+
+  return sum;
+}
+
+int productList(List<int> list) {
+  int product = 1;
+
+  for (int i = 0; i < list.length; i++) {
+    product *= list[i];
+  }
+
+  return product;
+}
+
+Set removeDuplicates(List list) {
+  return list.toSet();
+}
+
+int factorial(int n) {
+  int result = 1;
+
+  for (int i = 1; i <= n; i++) {
+    result = result * i;
+  }
+
+  return result;
+}
+
+bool containsElement(Iterable collection, element) {
+  if (collection.contains(element)) {
+    return true;
+  }else {
+    return false;
+  }
+}
+
+void printOddIndexElements(List list) {
+  for (int i = 1; i < list.length; i += 2) {
+    print(list[i]);
+  }
+}
+
+List reverseList(List list) {
+  var revList = list.reversed.toList();
+
+  return revList;
+}
+
+double average(List<num> list) {
+  num sum = 0;
+
+  for (int i = 0; i < list.length; i++) {
+    sum = sum + list[i];
+  }
+
+  return sum / list.length;
+}
+
+int countOccurrences(List list, element) {
+  int counter = 0;
+  for (var item in list) {
+    if (item == element){
+      counter++;
+    }
+  }
+
+  return counter;
+}
+
+
 
 
 
