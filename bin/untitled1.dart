@@ -133,18 +133,14 @@ int factorial(int n) {
   int result = 1;
 
   for (int i = 1; i <= n; i++) {
-    result = result * i;
+    result *= i;
   }
 
   return result;
 }
 
 bool containsElement(Iterable collection, element) {
-  if (collection.contains(element)) {
-    return true;
-  }else {
-    return false;
-  }
+  return collection.contains(element);
 }
 
 void printOddIndexElements(List list) {
@@ -163,7 +159,7 @@ double average(List<num> list) {
   num sum = 0;
 
   for (int i = 0; i < list.length; i++) {
-    sum = sum + list[i];
+    sum += list[i];
   }
 
   return sum / list.length;
